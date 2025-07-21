@@ -19,16 +19,16 @@ public class JPAClient implements IPersistable {
 	private String name;
 
 	@Column(name = "cpf", nullable = false, unique = true)
-	private Long cpf;
+	private String cpf;
 
 	@Column(name = "phone", nullable = false)
-	private Long phone;
+	private String phone;
 
 	@Column(name = "address", nullable = false, length = 100)
 	private String address;
 
 	@Column(name = "address_number", nullable = false)
-	private Integer addressNumber;
+	private String addressNumber;
 
 	@Column(name = "city", nullable = false, length = 100)
 	private String city;
@@ -40,11 +40,11 @@ public class JPAClient implements IPersistable {
 		return name;
 	}
 
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public Long getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
@@ -52,7 +52,7 @@ public class JPAClient implements IPersistable {
 		return address;
 	}
 
-	public Integer getAddressNumber() {
+	public String getAddressNumber() {
 		return addressNumber;
 	}
 
@@ -68,11 +68,11 @@ public class JPAClient implements IPersistable {
 		this.name = name;
 	}
 
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	public void setPhone(Long phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -80,7 +80,7 @@ public class JPAClient implements IPersistable {
 		this.address = address;
 	}
 
-	public void setAddressNumber(Integer addressNumber) {
+	public void setAddressNumber(String addressNumber) {
 		this.addressNumber = addressNumber;
 	}
 
