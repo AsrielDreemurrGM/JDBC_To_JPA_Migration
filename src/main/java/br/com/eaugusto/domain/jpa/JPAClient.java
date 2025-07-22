@@ -3,7 +3,7 @@ package br.com.eaugusto.domain.jpa;
 import javax.persistence.*;
 
 /**
- * Author: Eduardo Augusto (github.com/AsrielDreemurrGM/)
+ * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */
 @Entity
