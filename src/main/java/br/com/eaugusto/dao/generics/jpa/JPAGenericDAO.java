@@ -1,6 +1,6 @@
 /**
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
- * @since Jul 21, 2025
+ * @since July 21, 2025
  */
 package br.com.eaugusto.dao.generics.jpa;
 
@@ -100,10 +100,6 @@ public class JPAGenericDAO<T extends IPersistable, E extends Serializable> imple
     }
 
     private String getPersistenceUnitName() {
-        if (persistenceUnitName != null && !persistenceUnitName.isEmpty()) {
             return persistenceUnitName;
-        } else {
-            return DEFAULTPERSISTENCEUNITNAME;
-        }
     }
 }
