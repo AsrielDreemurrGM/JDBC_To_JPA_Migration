@@ -35,6 +35,10 @@ public class JPASellingDAO extends JPAGenericDAO<JPASelling, Long> implements IJ
     public void delete(JPASelling entity) {
         throw new UnsupportedOperationException("Operation not allowed");
     }
+    
+    public void testCleanupDelete(JPASelling entity) {
+        super.delete(entity);
+    }
 
     @Override
     public JPASelling register(JPASelling entity) {
