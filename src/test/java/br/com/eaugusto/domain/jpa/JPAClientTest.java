@@ -11,6 +11,11 @@ import br.com.eaugusto.dao.generics.jpa.JPAGenericDAO;
 import br.com.eaugusto.exceptions.DAOException;
 
 /**
+ * Tests for the {@link JPAClient} entity and its DAO operations.
+ * 
+ * Covers registering, finding by ID, updating, deleting, and retrieving all clients.
+ * Uses {@link IJPAGenericDAO} and {@link JPAGenericDAO}.
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */

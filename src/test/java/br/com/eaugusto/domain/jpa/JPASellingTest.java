@@ -20,6 +20,23 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Integration and unit tests for {@link JPASelling} entity and related DAOs.
+ * 
+ * Covers:
+ * <ul>
+ *  <li>Registering sales and fetching with collections</li>
+ *  <li>Testing status ENUM retrieval</li>
+ *  <li>Adding, removing, and updating products within sales</li>
+ *  <li>Validation of business rules such as preventing modifications to finished sales</li>
+ *  <li>Testing cancellation and exception handling on unsupported operations</li>
+ * </ul>
+ * 
+ * Uses {@link JPASellingDAO}, {@link JPAClientDAO}, and {@link JPAProductDAO}.
+ * 
+ * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
+ * @since July 22, 2025
+ */
 public class JPASellingTest {
 
     private JPASellingDAO sellingDAO;

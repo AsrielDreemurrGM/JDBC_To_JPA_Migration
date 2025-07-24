@@ -12,6 +12,11 @@ import br.com.eaugusto.dao.generics.jpa.JPAGenericDAO;
 import br.com.eaugusto.exceptions.DAOException;
 
 /**
+ * Tests for the {@link JPAProduct} entity and its DAO functionality.
+ * 
+ * Includes tests for registering, finding by ID, updating, deleting, and retrieving all products.
+ * Utilizes {@link IJPAGenericDAO} and {@link JPAGenericDAO}.
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */

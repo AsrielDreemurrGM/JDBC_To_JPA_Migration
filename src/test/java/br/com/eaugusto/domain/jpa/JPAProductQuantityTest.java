@@ -9,6 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
+ * Unit tests for {@link JPAProductQuantity}.
+ * 
+ * Verifies quantity increment and decrement, total price updates,
+ * exception when removing more than available, and basic getters/setters.
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 22, 2025
  */
