@@ -12,6 +12,15 @@ import br.com.eaugusto.domain.jpa.JPASelling;
 import br.com.eaugusto.exceptions.DAOException;
 
 /**
+ * Concrete DAO implementation for {@link JPASelling}.
+ * Overrides and extends base methods to manage business logic for sales,
+ * including cascade operations and criteria queries.
+ * 
+ * Includes logic for:
+ * - Registering sales with merged relationships;
+ * - Preventing standard deletion;
+ * - Fetching related collections eagerly.
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */
@@ -21,25 +30,53 @@ public class JPASellingDAO extends JPAGenericDAO<JPASelling, Long> implements IJ
         super(JPASelling.class);
     }
 
+    /**
+     * Finalizes a sale by updating its status.
+     *
+     * @param sale The {@link JPASelling} entity to finalize.
+     */
     @Override
     public void finalizeSale(JPASelling sale) {
         super.update(sale);
     }
 
+    /**
+     * Cancels a sale by updating its status.
+     *
+     * @param sale The {@link JPASelling} entity to cancel.
+     */
     @Override
     public void cancelSale(JPASelling sale) {
         super.update(sale);
     }
 
+    /**
+     * Prevents deletion of sales due to business rules.
+     *
+     * @param entity The {@link JPASelling} entity.
+     * @throws UnsupportedOperationException If deletion is attempted.
+     */
     @Override
     public void delete(JPASelling entity) {
         throw new UnsupportedOperationException("Operation not allowed");
     }
-    
+
+	/**
+	 * Used only for test cleanup purposes.
+	 *
+	 * @param entity The {@link JPASelling} entity to delete.
+	 */
     public void testCleanupDelete(JPASelling entity) {
         super.delete(entity);
     }
 
+    /**
+     * Registers a new sale with cascaded client and product merge.
+     *
+     * @param entity The {@link JPASelling} entity to register.
+     * @return The registered {@link JPASelling} entity.
+     * @throws DAOException If any exception occurs during registration.
+     */
     @Override
     public JPASelling register(JPASelling entity) {
         try {
@@ -59,6 +96,12 @@ public class JPASellingDAO extends JPAGenericDAO<JPASelling, Long> implements IJ
         }
     }
 
+    /**
+     * Retrieves a sale with all its collections loaded (client and products).
+     *
+     * @param id The ID of the sale.
+     * @return The {@link JPASelling} entity with collections fetched.
+     */
     @Override
     public JPASelling findWithCollections(Long id) {
         openConnection();
