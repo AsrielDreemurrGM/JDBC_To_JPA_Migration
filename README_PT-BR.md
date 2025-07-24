@@ -56,3 +56,10 @@
   <li>DDL Auto: <code>update</code></li>
   <li>Saída de SQL: <code>hibernate.show_sql = true</code></li>
 </ul>
+<h2>📚 Documentação e JavaDocs</h2>
+<p>Todos os pacotes e classes principais incluem documentação JavaDoc para facilitar a compreensão do projeto:</p>
+<ul>
+  <li>Interfaces e implementações DAO documentadas com contratos esperados de operação;</li>
+  <li>Entidades JPA detalhadas com explicações de relacionamentos e atributos persistentes;</li>
+  <li>Testes explicam os cenários validados, exceções esperadas e a lógica de negócio testada.</li>
+</ul>
