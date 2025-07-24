@@ -13,6 +13,15 @@ import br.com.eaugusto.exceptions.DAOParameterException;
 import br.com.eaugusto.exceptions.DatabaseConnectionException;
 
 /**
+ * Generic JPA DAO Implementation.
+ * <p>
+ * Provides a reusable implementation of {@link IJPAGenericDAO} with basic 
+ * JPA operations and connection management. Works with any entity type 
+ * implementing {@link IPersistable}.
+ *
+ * @param <T> the type of entity
+ * @param <E> the type of entity ID
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */
@@ -120,6 +129,11 @@ public class JPAGenericDAO<T extends IPersistable, E extends Serializable> imple
         }
     }
 
+    /**
+     * Opens the EntityManager and begins a transaction.
+     *
+     * @throws DatabaseConnectionException if the EntityManager or Factory fails to initialize
+     */
     protected void openConnection() throws DatabaseConnectionException {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(getPersistenceUnitName());
@@ -130,6 +144,11 @@ public class JPAGenericDAO<T extends IPersistable, E extends Serializable> imple
         }
     }
 
+    /**
+     * Closes the EntityManager and its factory safely.
+     *
+     * @throws DatabaseConnectionException if an error occurs while closing resources
+     */
     protected void closeConnection() throws DatabaseConnectionException {
         try {
             if (entityManager != null && entityManager.isOpen()) {
@@ -143,10 +162,20 @@ public class JPAGenericDAO<T extends IPersistable, E extends Serializable> imple
         }
     }
 
+    /**
+     * Builds the JPQL select query string for the given entity class.
+     *
+     * @return JPQL query string to fetch all entities
+     */
     private String getSelectSql() {
         return "SELECT obj FROM " + this.entityClass.getSimpleName() + " obj";
     }
 
+    /**
+     * Returns the configured persistence unit name.
+     *
+     * @return the persistence unit name to be used in the connection
+     */
     private String getPersistenceUnitName() {
         return persistenceUnitName;
     }
