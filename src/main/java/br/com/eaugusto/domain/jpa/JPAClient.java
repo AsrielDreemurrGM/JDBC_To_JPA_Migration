@@ -3,6 +3,15 @@ package br.com.eaugusto.domain.jpa;
 import javax.persistence.*;
 
 /**
+ * Represents a client entity in the system.
+ * 
+ * Mapped to the table <code>tb_client</code> and contains basic personal and address information.
+ * Implements {@link IPersistable} for generic persistence support.
+ * 
+ * @see IPersistable
+ * @see javax.persistence.Entity
+ * @see javax.persistence.Table
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */

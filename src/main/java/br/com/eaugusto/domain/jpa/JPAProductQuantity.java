@@ -4,6 +4,17 @@ import java.math.BigDecimal;
 import javax.persistence.*;
 
 /**
+ * Represents the relationship between a product and a selling transaction.
+ * 
+ * Stores the quantity and total price for each product in a {@link JPASelling}.
+ * Mapped to the table <code>tb_product_quantity</code>.
+ * 
+ * @see JPASelling
+ * @see JPAProduct
+ * @see javax.persistence.Entity
+ * @see javax.persistence.ManyToOne
+ * @see java.math.BigDecimal
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */
@@ -79,12 +90,29 @@ public class JPAProductQuantity {
 		this.selling = selling;
 	}
 
+	/**
+	 * Increases the quantity and total price based on the added amount.
+	 * 
+	 * Updates the internal quantity and adds the product's price times the given quantity
+	 * to the current total price.
+	 * 
+	 * @param quantity The quantity of the product to add.
+	 */
 	public void add(Integer quantity) {
 		this.quantity += quantity;
 		BigDecimal newPrice = this.product.getPrice().multiply(BigDecimal.valueOf(quantity));
 		this.totalPrice = this.totalPrice.add(newPrice);
 	}
 
+	/**
+	 * Decreases the quantity and total price based on the removed amount.
+	 * 
+	 * Throws {@link IllegalArgumentException} if the quantity to remove exceeds
+	 * the current quantity.
+	 * 
+	 * @param quantity The quantity of the product to remove.
+	 * @throws IllegalArgumentException if trying to remove more than available.
+	 */
 	public void remove(Integer quantity) {
 		if (quantity > this.quantity) {
 			throw new IllegalArgumentException("Cannot remove more than existing quantity.");

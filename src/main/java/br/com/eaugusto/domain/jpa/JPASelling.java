@@ -8,6 +8,21 @@ import java.util.Set;
 import javax.persistence.*;
 
 /**
+ * Represents a selling transaction in the system.
+ * 
+ * Mapped to the table <code>tb_selling</code>, this entity records the products sold,
+ * the client, the total price, date, and status.
+ * Implements {@link IPersistable} for generic DAO compatibility.
+ * 
+ * Provides logic for adding, removing, and recalculating product totals within a sale.
+ * 
+ * @see IPersistable
+ * @see JPAClient
+ * @see JPAProductQuantity
+ * @see javax.persistence.Entity
+ * @see java.math.BigDecimal
+ * @see java.time.Instant
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */
@@ -123,6 +138,17 @@ public class JPASelling implements IPersistable {
 		this.products = products;
 	}
 
+	/**
+	 * Adds a product to the selling with a given quantity.
+	 * 
+	 * If the product is already present in the sale, it increases its quantity.
+	 * Otherwise, it creates a new {@link JPAProductQuantity} entry. Automatically
+	 * recalculates the total selling price afterward.
+	 * 
+	 * @param product  The product to be added.
+	 * @param quantity The amount of the product to be added.
+	 * @throws UnsupportedOperationException if the selling is already finished.
+	 */
 	public void addProduct(JPAProduct product, Integer quantity) {
 		validateStatus();
 		Optional<JPAProductQuantity> optional = findProductQuantityByCode(product.getCode());
@@ -140,6 +166,17 @@ public class JPASelling implements IPersistable {
 		recalculateTotalSellingPrice();
 	}
 
+	/**
+	 * Removes a quantity of the given product from the selling.
+	 * 
+	 * If the amount to remove is less than the existing quantity, it decreases the value.
+	 * If equal or more, the product is entirely removed from the set.
+	 * Automatically recalculates the total selling price afterward.
+	 * 
+	 * @param product  The product to be removed.
+	 * @param quantity The quantity to be removed.
+	 * @throws UnsupportedOperationException if the selling is already finished.
+	 */
 	public void removeProduct(JPAProduct product, Integer quantity) {
 		validateStatus();
 		Optional<JPAProductQuantity> optional = findProductQuantityByCode(product.getCode());
@@ -155,12 +192,22 @@ public class JPASelling implements IPersistable {
 		}
 	}
 
+	/**
+	 * Removes all products from the selling and resets the total price to zero.
+	 * 
+	 * @throws UnsupportedOperationException if the selling is already finished.
+	 */
 	public void removeAllProducts() {
 		validateStatus();
 		products.clear();
 		totalPrice = BigDecimal.ZERO;
 	}
 
+	/**
+	 * Recalculates the total selling price based on all current products in the sale.
+	 * 
+	 * Iterates over all {@link JPAProductQuantity} instances and sums their total prices.
+	 */
 	public void recalculateTotalSellingPrice() {
 		BigDecimal newTotalPrice = BigDecimal.ZERO;
 		for (JPAProductQuantity product : this.products) {
@@ -169,12 +216,25 @@ public class JPASelling implements IPersistable {
 		this.totalPrice = newTotalPrice;
 	}
 
+
+	/**
+	 * Finds a product within the selling by its code.
+	 * 
+	 * @param code The product code to search for.
+	 * @return An {@link Optional} containing the found {@link JPAProductQuantity}, if any.
+	 */
 	private Optional<JPAProductQuantity> findProductQuantityByCode(String code) {
 		return products.stream()
 			.filter(pq -> pq.getProduct().getCode().equals(code))
 			.findAny();
 	}
 
+	/**
+	 * Validates if the selling is in a modifiable state.
+	 * 
+	 * Throws {@link UnsupportedOperationException} if the selling status is {@code FINISHED}.
+	 * Used before performing any operation that modifies product quantities.
+	 */
 	private void validateStatus() {
 		if (this.sellingStatus == Status.FINISHED) {
 			throw new UnsupportedOperationException("CANNOT MODIFY A FINISHED SELLING");

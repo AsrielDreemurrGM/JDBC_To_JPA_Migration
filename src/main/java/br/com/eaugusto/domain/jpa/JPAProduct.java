@@ -10,6 +10,17 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
+ * Represents a product entity available for sale.
+ * 
+ * Mapped to the table <code>tb_product</code>, each product has a unique code,
+ * name, description, and price.
+ * Implements {@link IPersistable} for persistence operations.
+ * 
+ * @see IPersistable
+ * @see javax.persistence.Entity
+ * @see javax.persistence.Table
+ * @see java.math.BigDecimal
+ * 
  * @author Eduardo Augusto (github.com/AsrielDreemurrGM/)
  * @since July 21, 2025
  */
